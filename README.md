@@ -104,7 +104,7 @@ documentation][bibtex].
 > - `Manuel {Ojeda Aciego}`        -> `M. {Ojeda Aciego}`
 > - `John von Neumann`             -> `J. von Neumann`
 > - `Allen {V}an Gelder`           -> `A. {V}an Gelder`
-> - `Luis Fari{\~{n}}as del Cerro` -> `L. {Fari{\~{n}}as del Cerro}`
+> - `Luis Fari{\~n}as del Cerro` -> `L. {Fari{\~n}as del Cerro}`
 > - `Marcello D'Agostino`          -> `M. {D}'\relax Agostino`
 
 In the `title` field, **enclose capital letters** (other than the first letter)
@@ -141,9 +141,9 @@ Use the **strings** defined in [krr.bib] for journal names.
 > example: `@string{lncs = {Lecture Notes in Computer Science}}` for use in
 > BibTex entries as `series = lncs`
 
-Use LaTeX commands for **special characters** in all fields putting braces around the command.
+Use LaTeX commands for **special characters** in all fields putting (a single pair of) braces around the command.
 
-> example: `J. P{\"a}tynen` or `J. P{\"{a}}tynen` but neither `J. Pätynen`, `J. P\"atynen`, `J. P\"{a}tynen`, nor `J. P{{\"a}}tynen`.
+> example: `J. P{\"a}tynen` but neither `J. P{\"{a}}tynen`, `J. Pätynen`, `J. P\"atynen`, `J. P\"{a}tynen`, nor `J. P{{\"a}}tynen`.
 
 Use `-` rather than `--` for **hyphens** in the pages, volume, and number fields.
 Don’t terminate field contents with `.`.
@@ -171,22 +171,18 @@ characters, and spacing. Nevertheless, **always** check the result of the
 script. Especially, when pasting contents from external sources (like titles of
 PDFs) make sure that special characters like ligatures were replaced correctly.
 
-The script requires at least Python 3.10 and the [bibtexparser] 1.3 module.
-It is quite easy to setup with anaconda:
+The helper scripts use a project-local Python environment that is configured via 
+`.envrc`. The required Python packages are installed automatically when entering
+the project directory.
 
-```sh
-# install anaconda
-wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
-bash Miniconda3-latest-Linux-x86_64.sh
+To use this setup, `direnv` must be installed and enabled in your shell. For 
+Bash, add the following line at the very end of `~/.bashrc`:
 
-# setup environment
-conda create -n bib python=3.10 pip
-conda activate bib
-pip install 'bibtexparser>=1.3,<2.0'
+    eval "$(direnv hook bash)"
 
-# run bibfmt
-conda activate bib
-```
+After cloning the repository, or whenever `.envrc` changes, run:
+
+    direnv allow
 
 [krr.bib]: krr.bib
 [procs.bib]: procs.bib
